@@ -1,0 +1,326 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>使用说明书</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#FFFFFF; --fg:#000000; --muted:#555555; --line:#000000;
+  --accent:#FFD500; --accent-fg:#000000;
+  color-scheme: light;
+  box-sizing: border-box;
+  padding-top: env(safe-area-inset-top, 0px);
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#141414; --fg:#F2F2F2; --muted:#ABABAB; --line:#F2F2F2;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#141414; --fg:#F2F2F2; --muted:#ABABAB; --line:#F2F2F2;
+  color-scheme: dark;
+}
+html{ scroll-padding-top: env(safe-area-inset-top, 0px); scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce){ html{ scroll-behavior: auto; } }
+*,*::before,*::after{ box-sizing: border-box; }
+body{
+  margin:0; background:var(--bg); color:var(--fg);
+  font-family:"Noto Sans SC","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+  font-size:17px; line-height:1.7;
+  -webkit-text-size-adjust:100%;
+}
+a{ color:inherit; }
+a:focus-visible, summary:focus-visible{ outline:3px solid var(--accent); outline-offset:2px; }
+.wrap{ max-width:780px; margin:0 auto; padding:0 22px; }
+
+.topbar{ display:flex; justify-content:space-between; align-items:baseline; gap:12px; padding:18px 0 12px; border-bottom:2px solid var(--line); }
+.brand{ font-weight:900; font-size:15px; letter-spacing:.04em; }
+.meta{ font-size:13px; color:var(--muted); }
+
+.hero{ padding:40px 0 28px; }
+.hero h1{ margin:0; font-size:clamp(34px, 8vw, 56px); line-height:1.1; font-weight:900; letter-spacing:-.01em; }
+.hero p{ margin:14px 0 0; font-size:17px; max-width:32em; }
+.hero .note{ margin-top:18px; padding-left:14px; border-left:4px solid var(--accent); }
+
+.toc{ border-top:2px solid var(--line); margin-bottom:24px; }
+.toc h2{ margin:0; padding:14px 0 6px; font-size:15px; font-weight:700; }
+.toc ol{ list-style:none; margin:0; padding:0; }
+.toc a{ display:grid; grid-template-columns:44px 1fr auto; align-items:center; min-height:48px; border-top:1px solid var(--line); text-decoration:none; font-size:17px; }
+.toc a:hover .toc-t{ text-decoration:underline; }
+.toc .toc-n{ font-weight:900; }
+.toc .toc-p{ font-size:13px; color:var(--muted); }
+
+.chapter{ border-top:2px solid var(--line); padding:28px 0 36px; display:grid; grid-template-columns:1fr; gap:4px 24px; }
+.ch-num{ font-size:64px; font-weight:900; line-height:.9; }
+.ch-head{ display:flex; gap:16px; align-items:flex-start; }
+.ch-head h2{ margin:0; font-size:26px; line-height:1.25; font-weight:700; padding-top:4px; }
+.lead{ margin:14px 0 0; font-size:18px; font-weight:500; }
+.notice{ display:inline-block; background:var(--accent); color:var(--accent-fg); border:1.5px solid var(--line); font-size:13px; font-weight:900; padding:1px 8px; margin-right:8px; vertical-align:2px; }
+
+.clauses{ list-style:none; margin:18px 0 0; padding:0; display:flex; flex-direction:column; gap:10px; }
+.clause{ display:grid; grid-template-columns:44px 1fr; gap:8px; }
+.clause .no{ font-weight:700; font-variant-numeric:tabular-nums; }
+.mark{ display:inline-flex; align-items:center; justify-content:center; width:20px; height:20px; border-radius:50%; background:var(--fg); color:var(--bg); font-size:12px; font-weight:700; margin-right:6px; vertical-align:2px; }
+
+.group{ margin-top:22px; }
+.group h3{ margin:0; font-size:15px; font-weight:700; padding-bottom:4px; border-bottom:1px solid var(--line); }
+.group .clauses{ margin-top:10px; }
+
+.diagram{ margin:22px 0 0; border:1.5px solid var(--line); padding:12px; max-width:420px; }
+.diagram svg{ display:block; width:100%; height:auto; }
+.diagram .st{ fill:none; stroke:var(--fg); stroke-width:1.5; }
+.diagram .dash{ stroke-dasharray:4 3; }
+.diagram .hl{ fill:var(--accent); stroke:var(--fg); stroke-width:1.5; }
+.diagram .dot{ fill:var(--fg); }
+.diagram .dot-t{ fill:var(--bg); font-size:11px; font-weight:700; }
+.diagram .cap-t{ fill:var(--muted); font-size:10px; }
+.diagram figcaption{ display:flex; flex-wrap:wrap; gap:6px 16px; font-size:13px; border-top:1px solid var(--line); margin-top:6px; padding-top:6px; }
+
+.footer{ border-top:2px solid var(--line); padding:16px 0 40px; display:flex; justify-content:space-between; flex-wrap:wrap; gap:8px; font-size:13px; color:var(--muted); }
+
+@media (min-width: 760px){
+  .chapter{ grid-template-columns:110px 1fr; }
+  .ch-num{ font-size:88px;  }
+  .ch-head .ch-num-inline{ display:none; }
+  .car-body{ display:grid; grid-template-columns:1fr 280px; gap:0 28px; align-items:start; }
+  .car-body > div{ grid-column:1; grid-row:1; }
+  .car-body .diagram{ grid-column:2; grid-row:1; margin-top:22px; position:sticky; top:20px; }
+}
+@media (max-width: 759px){
+  .ch-num.ch-num-side{ display:none; }
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="topbar">
+    <span class="brand">使用说明书</span>
+    <span class="meta" id="updated"></span>
+  </header>
+
+  <section class="hero">
+    <h1 id="title"></h1>
+    <p id="intro"></p>
+    <p class="note" id="note"></p>
+  </section>
+
+  <nav class="toc" id="toc" aria-labelledby="toc-h">
+    <h2 id="toc-h">目录</h2>
+    <ol id="toc-list"></ol>
+  </nav>
+
+  <main id="chapters"></main>
+
+  <footer class="footer">
+    <span id="foot-updated"></span>
+    <a href="#toc">回到目录</a>
+  </footer>
+</div>
+
+<script>
+/* ============================================================
+   内容都在这里。增加内容时只改 MANUAL：
+   - 新增一章：在 chapters 里加一个对象（id 用英文，作为链接）
+   - 普通章节：lead（第一句）+ clauses（条目）
+   - 分组章节：lead + groups（每组 name + clauses）
+   - 条目可以写成字符串，或 {text: "...", mark: "1"} 对应示意图编号
+   ============================================================ */
+const MANUAL = {
+  title: "使用说明书",
+  intro: "跟我聊天、用我的东西、坐我的车之前，可以先看一下。",
+  note: "有些话，说的人自己可能没注意到：一直在说、不给我开口的机会，或者话里带着贬低、不礼貌。",
+  updated: "2026 年 10 月",
+  chapters: [
+    {
+      id: "talk",
+      title: "说话",
+      lead: "说话请有来有回。",
+      clauses: [
+        "给我留出开口的机会，让我把话说完，别频繁打断。",
+        "不用一直找话题、一直聊天。我们的大脑也需要休息。"
+      ]
+    },
+    {
+      id: "thanks",
+      title: "礼貌，和说谢谢",
+      lead: "请礼貌。",
+      clauses: [
+        "找我帮了忙，记得说声谢谢。"
+      ]
+    },
+    {
+      id: "respect",
+      title: "不要贬低我",
+      lead: "请不要以任何形式贬低我。",
+      clauses: [
+        "嘲讽、挖苦、居高临下地评价我、拿我和别人比较、在我面前秀优越感，都不行。",
+        "我自嘲的时候，也不要顺势贬低我。",
+        "也不要一直反驳我。我说一句就被纠正一句、顶回来一句，这种持续的否定和压制，会让我很不舒服。",
+        "我需要的是鼓励和支持。"
+      ]
+    },
+    {
+      id: "way",
+      title: "尊重我的做事方式",
+      lead: "请尊重我的做事方式。",
+      clauses: [
+        "对我在做的事好奇时，不要用居高临下的反问、质问语气。",
+        "也不要急着反驳、纠正我、贬低我。"
+      ]
+    },
+    {
+      id: "rush",
+      title: "不要催我",
+      lead: "什么事都不要催我。",
+      clauses: [
+        "生活节奏不必太快，不用着急。",
+        "更不要说「你行不行啊」这种恶毒的话，这是在催我，也是在贬低我。"
+      ]
+    },
+    {
+      id: "swear",
+      title: "不要对着我说脏话",
+      lead: "不管是不是在说我。",
+      clauses: [
+        "吐槽别人、讲故事、开玩笑都算。只要是对着我说，我就会不舒服。"
+      ]
+    },
+    {
+      id: "car",
+      title: "坐我的车",
+      lead: "我用车的成本很高。座椅是合成皮革，我很在意磨损。请轻手轻脚，爱惜内饰，保持干净。",
+      notice: true,
+      diagram: true,
+      groups: [
+        { name: "开关车门", clauses: [
+          { text: "开关车门要轻，别甩门、摔门。", mark: "2" }
+        ]},
+        { name: "上下车", clauses: [
+          { text: "上下车时，别在座椅侧面反复蹭、擦、刮，尤其是右侧边缘。", mark: "1" }
+        ]},
+        { name: "安全带", clauses: [
+          "安全带轻轻拉出来，够扣上就行。别使劲拽，也别一直往外拉、整条拉出来。"
+        ]},
+        { name: "座椅", clauses: [
+          "座椅角度可以按需要调，调好就别来回调着玩。",
+          "别用脚使劲蹬地，同时往后猛顶靠背。"
+        ]},
+        { name: "门板和脚垫", clauses: [
+          { text: "门板和侧面是塑料的，别用力挤压、蹬、踹。", mark: "2" },
+          { text: "脚垫别蹭歪。", mark: "3" }
+        ]},
+        { name: "手和食物", clauses: [
+          "手上有食物残渣、油或其他脏东西时，先别碰车里的东西。",
+          "尽量别在车上吃东西。"
+        ]}
+      ]
+    }
+  ]
+};
+
+const DIAGRAM = `
+<figure class="diagram">
+  <svg viewBox="0 0 316 200" role="img" aria-label="副驾座椅俯视示意图：1 座椅右侧边缘，2 车门和门板，3 脚垫">
+    <path class="st dash" d="M96 20 L220 20 L232 64 L84 64 Z"/>
+    <rect class="st" x="90" y="78" width="136" height="76" rx="8"/>
+    <rect class="st" x="90" y="78" width="18" height="76" rx="6"/>
+    <rect class="hl" x="208" y="78" width="18" height="76" rx="6"/>
+    <rect class="st" x="94" y="156" width="128" height="30" rx="6"/>
+    <rect class="st" x="262" y="10" width="16" height="182"/>
+    <line class="st" x1="226" y1="116" x2="244" y2="116" style="stroke-width:1"/>
+    <circle class="dot" cx="252" cy="116" r="8"/><text class="dot-t" x="252" y="120" text-anchor="middle">1</text>
+    <line class="st" x1="278" y1="60" x2="290" y2="60" style="stroke-width:1"/>
+    <circle class="dot" cx="298" cy="60" r="8"/><text class="dot-t" x="298" y="64" text-anchor="middle">2</text>
+    <line class="st" x1="78" y1="42" x2="92" y2="42" style="stroke-width:1"/>
+    <circle class="dot" cx="70" cy="42" r="8"/><text class="dot-t" x="70" y="46" text-anchor="middle">3</text>
+    <text class="cap-t" x="8" y="196">俯视，车头朝上</text>
+  </svg>
+  <figcaption><span>1　座椅右侧边缘</span><span>2　车门和门板</span><span>3　脚垫</span></figcaption>
+</figure>`;
+
+function el(tag, cls, text){
+  const n = document.createElement(tag);
+  if (cls) n.className = cls;
+  if (text != null) n.textContent = text;
+  return n;
+}
+function clauseList(items, chapterNo, start){
+  const ol = el("ol", "clauses");
+  items.forEach((c, i) => {
+    const item = typeof c === "string" ? { text: c } : c;
+    const li = el("li", "clause");
+    li.appendChild(el("span", "no", chapterNo + "." + (start + i)));
+    const body = el("span");
+    if (item.mark){ const m = el("span", "mark", item.mark); m.setAttribute("aria-label", "示意图 " + item.mark); body.appendChild(m); }
+    body.appendChild(document.createTextNode(item.text));
+    li.appendChild(body);
+    ol.appendChild(li);
+  });
+  return ol;
+}
+
+document.getElementById("title").textContent = MANUAL.title;
+document.getElementById("intro").textContent = MANUAL.intro;
+document.getElementById("note").textContent = MANUAL.note;
+document.getElementById("updated").textContent = MANUAL.updated + "修订";
+document.getElementById("foot-updated").textContent = "最后更新：" + MANUAL.updated + "。内容会继续增删。";
+
+const tocList = document.getElementById("toc-list");
+const main = document.getElementById("chapters");
+
+MANUAL.chapters.forEach((ch, idx) => {
+  const no = idx + 1;
+
+  const li = document.createElement("li");
+  const a = el("a"); a.href = "#" + ch.id;
+  a.appendChild(el("span", "toc-n", String(no)));
+  a.appendChild(el("span", "toc-t", ch.title));
+  const count = ch.groups ? ch.groups.reduce((s, g) => s + g.clauses.length, 0) : ch.clauses.length;
+  a.appendChild(el("span", "toc-p", count + " 条"));
+  li.appendChild(a); tocList.appendChild(li);
+
+  const sec = el("section", "chapter"); sec.id = ch.id;
+  sec.setAttribute("aria-labelledby", ch.id + "-h");
+  sec.appendChild(el("div", "ch-num ch-num-side", String(no)));
+
+  const content = el("div");
+  const head = el("div", "ch-head");
+  const numInline = el("div", "ch-num ch-num-inline", String(no)); numInline.setAttribute("aria-hidden", "true");
+  head.appendChild(numInline);
+  const h2 = el("h2", null, ch.title); h2.id = ch.id + "-h";
+  head.appendChild(h2);
+  content.appendChild(head);
+
+  const lead = el("p", "lead");
+  if (ch.notice) lead.appendChild(el("span", "notice", "注意"));
+  lead.appendChild(document.createTextNode(ch.lead));
+  content.appendChild(lead);
+
+  if (ch.groups){
+    const body = el("div", "car-body");
+    const col = el("div");
+    let n = 1;
+    ch.groups.forEach(g => {
+      const grp = el("div", "group");
+      grp.appendChild(el("h3", null, g.name));
+      grp.appendChild(clauseList(g.clauses, no, n));
+      n += g.clauses.length;
+      col.appendChild(grp);
+    });
+    if (ch.diagram) body.insertAdjacentHTML("beforeend", DIAGRAM);
+    body.appendChild(col);
+    content.appendChild(body);
+  } else {
+    content.appendChild(clauseList(ch.clauses, no, 1));
+  }
+  sec.appendChild(content);
+  main.appendChild(sec);
+});
+</script>
+</body>
+</html>

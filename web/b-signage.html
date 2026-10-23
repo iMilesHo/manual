@@ -1,0 +1,298 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>使用须知</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;700;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#FFFFFF; --fg:#000000; --muted:#444444; --red:#C8102E;
+  color-scheme: light;
+  box-sizing: border-box;
+  padding-top: env(safe-area-inset-top, 0px);
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){ --bg:#000000; --fg:#FFFFFF; --muted:#BBBBBB; --red:#FF4D5E; color-scheme: dark; }
+}
+:root[data-theme="dark"]{ --bg:#000000; --fg:#FFFFFF; --muted:#BBBBBB; --red:#FF4D5E; color-scheme: dark; }
+html{ scroll-padding-top: env(safe-area-inset-top, 0px); }
+*,*::before,*::after{ box-sizing:border-box; }
+body{
+  margin:0; background:var(--bg); color:var(--fg);
+  font-family:"Noto Sans SC","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+  font-size:17px; line-height:1.7; -webkit-text-size-adjust:100%;
+  padding-bottom:64px;
+}
+a{ color:inherit; }
+a:focus-visible, summary:focus-visible{ outline:3px solid var(--red); outline-offset:3px; }
+.wrap{ max-width:880px; margin:0 auto; padding:0 22px; }
+
+.top{ display:flex; justify-content:space-between; align-items:center; padding:18px 0; }
+.who{ font-size:15px; font-weight:900; }
+.date{ font-size:13px; color:var(--muted); }
+
+.hero{ padding:28px 0 40px; }
+.hero h1{ margin:0; font-size:clamp(44px, 12vw, 88px); line-height:1.02; font-weight:900; letter-spacing:-.02em; }
+.hero p{ margin:16px 0 0; font-size:18px; max-width:28em; }
+.hero .note{ font-weight:700; margin-top:20px; padding-top:14px; border-top:3px solid var(--red); max-width:30em; }
+
+.rule{ border-top:6px solid var(--fg); padding:32px 0 40px; display:grid; grid-template-columns:1fr; gap:20px; }
+.rule .sign{ width:104px; height:104px; }
+.rule h2{ margin:0; font-size:clamp(32px, 8.5vw, 52px); line-height:1.12; font-weight:900; letter-spacing:-.01em; }
+.rule .lead{ margin:0; font-size:18px; font-weight:700; max-width:30em; }
+
+.signs{ display:grid; grid-template-columns:repeat(2, minmax(0, 1fr)); gap:22px 16px; margin-top:4px; }
+.signs figure{ margin:0; display:flex; flex-direction:column; align-items:center; gap:8px; text-align:center; }
+.signs svg{ width:96px; height:96px; }
+.signs figcaption{ font-size:15px; font-weight:700; line-height:1.4; }
+
+details{ margin-top:4px; }
+summary{
+  list-style:none; cursor:pointer; min-height:48px; display:flex; align-items:center; justify-content:center;
+  border:3px solid var(--fg); font-weight:700; font-size:16px; user-select:none; max-width:420px;
+}
+summary::-webkit-details-marker{ display:none; }
+details[open] summary{ background:var(--fg); color:var(--bg); }
+.detail{ padding:18px 0 0; max-width:34em; }
+.detail p{ margin:0 0 10px; }
+.detail h3{ margin:18px 0 4px; font-size:16px; font-weight:900; }
+.detail ul{ margin:0; padding-left:1.1em; }
+.detail li{ margin:2px 0; }
+
+.ink{ fill:none; stroke:var(--fg); stroke-width:5; stroke-linecap:round; stroke-linejoin:round; }
+.ink-f{ fill:var(--fg); }
+.ink-t{ fill:var(--fg); font-family:inherit; font-weight:900; }
+.ring{ fill:none; stroke:var(--red); stroke-width:9; }
+.must{ fill:var(--fg); }
+.must-t{ fill:var(--bg); font-family:inherit; font-weight:900; }
+.must-ink{ fill:none; stroke:var(--bg); stroke-width:5; stroke-linejoin:round; stroke-linecap:round; }
+
+.end{ border-top:6px solid var(--fg); padding:18px 0 32px; font-size:14px; color:var(--muted); }
+
+.tabs{
+  position:fixed; left:0; right:0; bottom:0; z-index:10;
+  background:var(--bg); border-top:3px solid var(--fg);
+  padding-bottom:env(safe-area-inset-bottom, 0px);
+}
+.tabs ol{ list-style:none; margin:0 auto; padding:0; max-width:880px; display:grid; grid-template-columns:repeat(7, minmax(0, 1fr)); }
+.tabs a{ min-height:56px; display:flex; align-items:center; justify-content:center; text-decoration:none; font-weight:700; font-size:14px; border-right:1px solid var(--fg); }
+.tabs li:last-child a{ border-right:0; }
+.tabs a[aria-current="true"]{ background:var(--fg); color:var(--bg); font-weight:900; }
+
+@media (min-width: 760px){
+  body{ padding-bottom:0; }
+  .tabs{ position:sticky; top:0; bottom:auto; border-top:0; border-bottom:3px solid var(--fg); padding-bottom:0; padding-top:0; }
+  body::before{ content:""; position:fixed; inset:0 0 auto; height:env(safe-area-inset-top, 0px); z-index:10; background:var(--bg); }
+  .tabs{ top:env(safe-area-inset-top, 0px); }
+  .rule{ grid-template-columns:150px 1fr; gap:24px 40px; }
+  .rule > .sign{ width:150px; height:150px; grid-row:1 / span 4; }
+  .rule > :not(.sign){ grid-column:2; }
+  .signs{ grid-template-columns:repeat(3, minmax(0, 1fr)); }
+}
+</style>
+</head>
+<body>
+<nav class="tabs" aria-label="章节"><ol id="tabs"></ol></nav>
+<div class="wrap">
+  <header class="top">
+    <span class="who"></span>
+    <span class="date" id="date"></span>
+  </header>
+  <section class="hero">
+    <h1 id="title"></h1>
+    <p id="intro"></p>
+    <p class="note" id="note"></p>
+  </section>
+  <main id="rules"></main>
+  <footer class="end" id="end"></footer>
+</div>
+
+<script>
+/* ============================================================
+   内容都在这里。增加内容时只改 MANUAL：
+   - 每一章：tab（底部导航短名）、headline（大字）、lead（一句话）
+   - detail：展开后的段落；groups：分组细节（车那一章）
+   - sign：章节标志；signs：一组小标志（可选）
+   标志图形在下面 SIGNS 里，可以复用已有的，也可以新增
+   ============================================================ */
+const MANUAL = {
+  title: "使用须知",
+  intro: "跟我聊天、用我的东西、坐我的车之前，可以先看一下。",
+  note: "有些话，说的人自己可能没注意到：一直在说、不给我开口的机会，或者话里带着贬低、不礼貌。",
+  updated: "2026 年 10 月",
+  chapters: [
+    {
+      id: "talk", tab: "说话", sign: "talk",
+      headline: "让我把话说完。",
+      lead: "说话请有来有回。给我留出开口的机会，别频繁打断。",
+      detail: [
+        "不用一直找话题、一直聊天。我们的大脑也需要休息。"
+      ]
+    },
+    {
+      id: "thanks", tab: "礼貌", sign: "thanks",
+      headline: "找我帮了忙，记得说谢谢。",
+      lead: "请礼貌。"
+    },
+    {
+      id: "respect", tab: "贬低", sign: "press",
+      headline: "别贬低我。",
+      lead: "嘲讽、挖苦、居高临下地评价我、拿我和别人比较、在我面前秀优越感，都不行。",
+      detail: [
+        "我自嘲的时候，也不要顺势贬低我。",
+        "也不要一直反驳我。我说一句就被纠正一句、顶回来一句，这种持续的否定和压制，会让我很不舒服。",
+        "我需要的是鼓励和支持。"
+      ]
+    },
+    {
+      id: "way", tab: "方式", sign: "question",
+      headline: "尊重我的做事方式。",
+      lead: "对我在做的事好奇时，不要用居高临下的反问、质问语气。",
+      detail: [
+        "也不要急着反驳、纠正我、贬低我。"
+      ]
+    },
+    {
+      id: "rush", tab: "别催", sign: "clock",
+      headline: "别催我。",
+      lead: "什么事都不要催我。生活节奏不必太快，不用着急。",
+      detail: [
+        "更不要说「你行不行啊」这种恶毒的话，这是在催我，也是在贬低我。"
+      ]
+    },
+    {
+      id: "swear", tab: "脏话", sign: "swear",
+      headline: "别对着我说脏话。",
+      lead: "不管是不是在说我。",
+      detail: [
+        "吐槽别人、讲故事、开玩笑都算。只要是对着我说，我就会不舒服。"
+      ]
+    },
+    {
+      id: "car", tab: "坐车", sign: null,
+      headline: "坐我的车，请轻手轻脚。",
+      lead: "我用车的成本很高。座椅是合成皮革，我很在意磨损。",
+      signs: [
+        { sign: "door", label: "别摔车门" },
+        { sign: "seatside", label: "别蹭座椅侧面" },
+        { sign: "belt", label: "别猛拉安全带" },
+        { sign: "kick", label: "别蹬门板" },
+        { sign: "food", label: "尽量别在车上吃" },
+        { sign: "hand", label: "手脏先别碰内饰" }
+      ],
+      groups: [
+        { name: "开关车门", items: ["开关车门要轻，别甩门、摔门。"] },
+        { name: "上下车", items: ["上下车时，别在座椅侧面反复蹭、擦、刮，尤其是右侧边缘。"] },
+        { name: "安全带", items: ["安全带轻轻拉出来，够扣上就行。别使劲拽，也别一直往外拉、整条拉出来。"] },
+        { name: "座椅", items: ["座椅角度可以按需要调，调好就别来回调着玩。", "别用脚使劲蹬地，同时往后猛顶靠背。"] },
+        { name: "门板和脚垫", items: ["门板和侧面是塑料的，别用力挤压、蹬、踹。", "脚垫别蹭歪。"] },
+        { name: "手和食物", items: ["手上有食物残渣、油或其他脏东西时，先别碰车里的东西。", "尽量别在车上吃东西。"] }
+      ]
+    }
+  ]
+};
+
+const NO = '<circle class="ring" cx="60" cy="60" r="52"/><line class="ring" x1="23" y1="23" x2="97" y2="97"/>';
+const SIGNS = {
+  talk: '<circle class="must" cx="60" cy="60" r="56"/>' +
+        '<path class="must-ink" d="M28 34 h40 a6 6 0 0 1 6 6 v16 a6 6 0 0 1 -6 6 h-26 l-10 9 v-9 h-4 a6 6 0 0 1 -6 -6 v-16 a6 6 0 0 1 6 -6 z"/>' +
+        '<path class="must-ink" d="M92 58 h-30 a6 6 0 0 0 -6 6 v14 a6 6 0 0 0 6 6 h22 l9 8 v-8 h-1 a6 6 0 0 0 6 -6 v-14 a6 6 0 0 0 -6 -6 z"/>',
+  thanks: '<circle class="must" cx="60" cy="60" r="56"/>' +
+          '<text class="must-t" x="60" y="71" font-size="32" text-anchor="middle">谢谢</text>',
+  question: '<path class="ink" d="M30 34 h60 a6 6 0 0 1 6 6 v28 a6 6 0 0 1 -6 6 h-34 l-12 11 v-11 h-14 a6 6 0 0 1 -6 -6 v-28 a6 6 0 0 1 6 -6 z"/>' +
+            '<text class="ink-t" x="60" y="66" font-size="30" text-anchor="middle">？</text>' + NO,
+  clock: '<circle class="ink" cx="60" cy="62" r="28"/><path class="ink" d="M60 46 v16 l11 7"/>' +
+         '<path class="ink" d="M50 28 h20 M30 44 l-6 -6 M90 44 l6 -6" style="stroke-width:4"/>' + NO,
+  press: '<circle class="ink-f" cx="60" cy="74" r="8"/><path class="ink" d="M60 84 v14"/>' +
+         '<path class="ink" d="M60 22 v38 M48 48 l12 13 l12 -13"/>' + NO,
+  swear: '<path class="ink" d="M30 34 h60 a6 6 0 0 1 6 6 v28 a6 6 0 0 1 -6 6 h-34 l-12 11 v-11 h-14 a6 6 0 0 1 -6 -6 v-28 a6 6 0 0 1 6 -6 z"/>' +
+         '<text class="ink-t" x="60" y="63" font-size="22" text-anchor="middle">#!*</text>' + NO,
+  door: '<path class="ink" d="M34 40 L72 40 L84 56 L84 86 L34 86 Z"/><path class="ink" d="M42 48 L68 48 L76 58 L42 58 Z"/>' +
+        '<path class="ink" d="M92 46 q6 14 0 28 M100 40 q9 20 0 40" style="stroke-width:4"/>' + NO,
+  belt: '<path class="ink" d="M38 28 L70 74" style="stroke-width:9"/>' +
+        '<rect class="ink" x="66" y="72" width="18" height="12" rx="2" transform="rotate(55 75 78)"/>' +
+        '<path class="ink" d="M78 90 L92 100 M92 100 l-10 0 M92 100 l-2 -10" style="stroke-width:4"/>' + NO,
+  seatside: '<path class="ink" d="M44 30 L44 88 Q44 94 50 94 L76 94"/><path class="ink" d="M56 40 L56 82"/>' +
+            '<path class="ink" d="M66 46 l8 6 l-8 6 l8 6 l-8 6" style="stroke-width:4"/>' + NO,
+  kick: '<rect class="ink" x="74" y="26" width="12" height="68"/>' +
+        '<path class="ink-f" d="M34 54 Q34 46 42 46 L64 46 Q70 46 70 54 L70 66 Q70 72 64 72 L42 72 Q34 72 34 64 Z"/>' +
+        '<path class="ink" d="M22 59 h8" style="stroke-width:4"/>' + NO,
+  food: '<path class="ink" d="M34 62 L86 62 Q84 86 60 86 Q36 86 34 62 Z"/>' +
+        '<path class="ink" d="M54 56 L80 30 M62 57 L88 34" style="stroke-width:4"/>' + NO,
+  hand: '<path class="ink" d="M46 86 L46 50 Q46 44 51 44 Q56 44 56 50 L56 40 Q56 34 61 34 Q66 34 66 40 L66 44 Q66 40 71 40 Q76 40 76 46 L76 74 Q76 86 64 86 Z"/>' +
+        '<path class="ink-f" d="M36 50 Q32 57 36 60 Q40 57 36 50 Z M84 60 Q80 67 84 70 Q88 67 84 60 Z"/>' + NO
+};
+function svg(key, cls){
+  return '<svg class="' + (cls || '') + '" viewBox="0 0 120 120" aria-hidden="true" focusable="false">' + SIGNS[key] + '</svg>';
+}
+function el(tag, cls, text){
+  const n = document.createElement(tag);
+  if (cls) n.className = cls;
+  if (text != null) n.textContent = text;
+  return n;
+}
+
+document.getElementById("title").textContent = MANUAL.title;
+document.getElementById("intro").textContent = MANUAL.intro;
+document.getElementById("note").textContent = MANUAL.note;
+document.getElementById("date").textContent = MANUAL.updated + "更新";
+document.getElementById("end").textContent = "最后更新：" + MANUAL.updated + "。内容会继续增删。";
+
+const tabs = document.getElementById("tabs");
+const rules = document.getElementById("rules");
+
+MANUAL.chapters.forEach(ch => {
+  const li = document.createElement("li");
+  const a = el("a", null, ch.tab); a.href = "#" + ch.id; a.dataset.id = ch.id;
+  li.appendChild(a); tabs.appendChild(li);
+
+  const sec = el("section", "rule"); sec.id = ch.id;
+  sec.setAttribute("aria-labelledby", ch.id + "-h");
+  if (ch.sign) sec.insertAdjacentHTML("beforeend", svg(ch.sign, "sign"));
+  const h2 = el("h2", null, ch.headline); h2.id = ch.id + "-h";
+  sec.appendChild(h2);
+  sec.appendChild(el("p", "lead", ch.lead));
+
+  if (ch.signs){
+    const grid = el("div", "signs");
+    ch.signs.forEach(s => {
+      const f = el("figure");
+      f.insertAdjacentHTML("beforeend", svg(s.sign));
+      f.appendChild(el("figcaption", null, s.label));
+      grid.appendChild(f);
+    });
+    sec.appendChild(grid);
+  }
+
+  if (!ch.detail && !ch.groups){ rules.appendChild(sec); return; }
+  const d = el("details");
+  const total = ch.groups ? ch.groups.reduce((n, g) => n + g.items.length, 0) : 0;
+  d.appendChild(el("summary", null, ch.groups ? "展开全部 " + total + " 条细节" : "展开说明"));
+  const box = el("div", "detail");
+  (ch.detail || []).forEach(p => box.appendChild(el("p", null, p)));
+  (ch.groups || []).forEach(g => {
+    box.appendChild(el("h3", null, g.name));
+    const ul = el("ul");
+    g.items.forEach(t => ul.appendChild(el("li", null, t)));
+    box.appendChild(ul);
+  });
+  d.appendChild(box);
+  sec.appendChild(d);
+  rules.appendChild(sec);
+});
+
+const links = [...tabs.querySelectorAll("a")];
+const io = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting){
+      links.forEach(l => l.setAttribute("aria-current", l.dataset.id === e.target.id ? "true" : "false"));
+    }
+  });
+}, { rootMargin: "-40% 0px -55% 0px" });
+document.querySelectorAll(".rule").forEach(s => io.observe(s));
+</script>
+</body>
+</html>
